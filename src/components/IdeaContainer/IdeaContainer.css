@@ -1,0 +1,5 @@
+.ideas-container {
+  display: grid;
+  grid-template-columns: (auto(100px));
+  grid-auto-rows: 150px;
+}
