@@ -1,8 +1,9 @@
 import React from "react"
+import "./Ideas.css"
 
 const Ideas = ({ description, location, key}) => {
   return (
-    <div>
+    <div className="ideas">
       <p>{description}</p>
       <p>{location}</p>
     </div>

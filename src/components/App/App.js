@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import getData from '../../apiCalls';
+import { getData } from '../../apiCalls';
 import IdeaContainer from "../IdeaContainer/IdeaContainer"
+import Form from "../Form/Form"
 
 class App extends Component {
   constructor() {
@@ -15,10 +16,14 @@ class App extends Component {
       .then(data=> {
         this.setState({data: data})})
   }
+  addIdea = (newIdea) => {
+    this.setState({data: [...this.state.data, newIdea]})
+  }
   render() {
     return (
       <main>
         <h1>UFO Sightings</h1>
+        <Form addIdea={this.addIdea}/>
         <IdeaContainer data={this.state.data}/>
       </main>
     )

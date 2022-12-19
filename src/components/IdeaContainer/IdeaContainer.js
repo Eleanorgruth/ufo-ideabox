@@ -6,7 +6,7 @@ const IdeaContainer = ({ data }) => {
   const cards = data.map(card => {
     return <Ideas 
       id={card.id}
-      key={card.key}
+      key={card.id}
       location={card.location}
       description={card.description}
     />
