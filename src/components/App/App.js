@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-// import { getData, deleteData, postData } from '../../apiCalls';
+import { getData, deleteData, postData } from '../../apiCalls';
 import IdeaContainer from "../IdeaContainer/IdeaContainer"
 import Form from "../Form/Form"
 
@@ -12,54 +12,17 @@ class App extends Component {
     }
   }
   addIdea = (newIdea) => {
-    fetch('http://localhost:3001/sightings', {
-        method: "POST",
-        body: JSON.stringify({
-          id: newIdea.id,
-          location: newIdea.location,
-          description: newIdea.description
-        }),
-        headers: {
-            'Content-Type': 'application/JSON'
-        }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw Error(response.statusText)
-            } else {
-                return response.json()
-            }
-        })
-    .then(response => {
-      // console.log("DATA", data)
-      this.setState({data: [...this.state.data, response]})
-    })
+    postData(newIdea)
+    .then(response => this.setState({data: [...this.state.data, response]}))
     .catch(error => console.log(error))
   }
 
   deleteIdea = (id) => {
-    fetch(`http://localhost:3001/sightings/${id}`, {
-        method: "DELETE",
-        headers: { 'Content-Type': 'application/JSON' },
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw Error(response.statusText)
-            } else {
-                return response.json()
-            }
-        })
+    deleteData(id)
     .then(response => this.setState({data: response}))
   }
   componentDidMount() {
-    fetch('http://localhost:3001/sightings')
-    .then(response => {
-        if (!response.ok) {
-            throw Error(response.statusText)
-        } else {
-            return response.json()
-        }
-    })
+    getData()
       .then(response => {
         console.log("DATA1", response)
         this.setState({data: response})
