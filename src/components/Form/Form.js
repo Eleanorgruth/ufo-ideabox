@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { postData } from "../../apiCalls";
+import './Form.css'
 
 class Form extends Component {
   constructor() {
@@ -12,11 +12,16 @@ class Form extends Component {
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value })
   }
-
+  clearInputs = () => {
+    this.setState({ location: "", description: ""})
+  }
   submitIdea = (event) => {
     event.preventDefault()
-    postData("http://localhost:3001/sightings", this.state)
-    .then(data=>{this.props.addIdea(data)})
+    const newIdea = {
+      ...this.state
+    }
+    this.props.addIdea(newIdea)
+    this.clearInputs()
   }
   
   render() {
@@ -36,12 +41,10 @@ class Form extends Component {
           type="text"
           onChange={(event) => this.handleChange(event)}
         />
-        <button 
-          onClick={(event)=> this.submitIdea(event)}
-        >Submit</button>
-      </form>
-
-
+        <button onClick={(event)=> this.submitIdea(event)}>
+          Submit
+        </button>
+      </form> 
     )
   }
 }
