@@ -3,7 +3,6 @@ import Ideas from "../Ideas/Ideas";
 import "./IdeaContainer.css"
 
 const IdeaContainer = ({ data, deleteIdea }) => {
-  console.log("DATA", data)
   const cards = data.map(card => {
     return (
     <Ideas 

@@ -23,10 +23,8 @@ class App extends Component {
   }
   componentDidMount() {
     getData()
-      .then(response => {
-        console.log("DATA1", response)
-        this.setState({data: response})
-      })
+      .then(response =>
+        this.setState({data: response}))
   }
   render() {
     return (
