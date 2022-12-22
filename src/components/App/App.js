@@ -1,41 +1,37 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { getData, deleteData, postData } from '../../apiCalls';
 import IdeaContainer from "../IdeaContainer/IdeaContainer"
 import Form from "../Form/Form"
 
-class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      data: []
-    }
-  }
-  addIdea = (newIdea) => {
+const App = () => {
+  const [data, changeData] = useState([])
+
+ const addIdea = (newIdea) => {
     postData(newIdea)
-    .then(response => this.setState({data: [...this.state.data, response]}))
+    .then(response => changeData([...data, response]))
     .catch(error => console.log(error))
   }
 
-  deleteIdea = (id) => {
+  const deleteIdea = (id) => {
     deleteData(id)
-    .then(response => this.setState({data: response}))
+    .then(response => changeData(response))
   }
-  componentDidMount() {
+  const test = () => {
     getData()
-      .then(response => {
-        console.log("DATA1", response)
-        this.setState({data: response})
-      })
+      .then(response => changeData(response))
+
   }
-  render() {
+useEffect(()=> {
+  test()
+}, [])
+
     return (
       <main>
         <h1>UFO Sightings</h1>
-        <Form addIdea={this.addIdea}/>
-        <IdeaContainer data={this.state.data} deleteIdea={this.deleteIdea} />
+        <Form addIdea={addIdea}/>
+        <IdeaContainer data={data} deleteIdea={deleteIdea} />
       </main>
     )
-  }
 }
 export default App;
