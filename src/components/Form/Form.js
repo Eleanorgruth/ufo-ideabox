@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './Form.css'
 
-const Form = () => {
+const Form = (props) => {
   const [location, changeLocation] = useState('')
   const [description, changeDescription] = useState('')
 
@@ -15,7 +15,7 @@ const Form = () => {
       location,
       description
     }
-    this.props.addIdea(newIdea)
+    props.addIdea(newIdea)
     clearInputs()
   }
   
@@ -26,16 +26,16 @@ const Form = () => {
           name="location"
           value={location}
           type="text"
-          onChange={() => changeLocation(location)}
+          onChange={(event) => changeLocation(event.target.value)}
         />
         <input
           placeholder="Description"
           name="description"
           value={description}
           type="text"
-          onChange={() => changeDescription(description)}
+          onChange={(event) => changeDescription(event.target.value)}
         />
-        <button onClick={(event)=> this.submitIdea(event)}>
+        <button onClick={(event)=>submitIdea(event)}>
           Submit
         </button>
       </form> 
